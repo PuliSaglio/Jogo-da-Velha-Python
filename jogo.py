@@ -9,7 +9,7 @@ tabuleiro = [
 jogadas = 0
 symbol_1 = 'X'
 symbol_2 = 'O'
-
+winner = False
 #funçao para checkar espaços vazios
 def vazio():
     for element in tabuleiro:
@@ -24,39 +24,37 @@ def win():
     #check rows
     for row in range(0,3):
         if tabuleiro[0][row] == tabuleiro[1][row] == tabuleiro[2][row] == symbol_1:
-            winner = True
             print("Player " + symbol_1 + ", Voce Ganhou!")
+            return True
+
         elif tabuleiro[0][row] == tabuleiro[1][row] == tabuleiro[row][2] == symbol_2:
-            winner = True
             print("Player " + symbol_2 + ", Voce Ganhou!")  
+            return True
 
     #check cols
     for col in range(0,3):
         if tabuleiro[col][0] == tabuleiro[col][1] == tabuleiro[col][2] == symbol_1:
-            winner = True
             print("Player " + symbol_1 + ", Voce Ganhou!")
+            return True
 
         elif tabuleiro[col][0] == tabuleiro[col][1] == tabuleiro[col][2] == symbol_2:
-            winner = True
             print("Player " + symbol_2 + ", Voce Ganhou!")    
+            return True
 
     #check diagonals
     if tabuleiro[0][0] == tabuleiro[1][1] == tabuleiro[2][2] == symbol_1:
-        winner = True
         print("Player " + symbol_1 + ", Voce Ganhou!")
+        return True
     elif tabuleiro[0][2] == tabuleiro[1][1] == tabuleiro[2][0] == symbol_1:
-        winner = True
         print("Player " + symbol_1 + ", Voce Ganhou!")
+        return True
     elif tabuleiro[0][0] == tabuleiro[1][1] == tabuleiro[2][2] == symbol_2:
-        winner = True
         print("Player " + symbol_2 + ", Voce Ganhou!")
+        return True
     elif tabuleiro[0][2] == tabuleiro[1][1] == tabuleiro[2][0] == symbol_1:
-        winner = True
         print("Player " + symbol_2 + ", Voce Ganhou!")
-
-    #empate
-    if jogadas == 8 and winner (not True):
-        print(f"Empate entre o Player {symbol_1} and Player {symbol_2}")
+        return True
+        
 
 #Mostrar o tabuleiro
 def mostrar_tabuleiro():
@@ -93,9 +91,14 @@ def start_game(jogadas):
                 tabuleiro[col][row] = "O"
                 jogadas = jogadas + 1
 
-        win()
 
+        winner = win()
+        if winner == True:
+            mostrar_tabuleiro()
+            print("FIM DO JOGO")
+            break
         if jogadas == 9:
+            mostrar_tabuleiro()
             print("FIM DO JOGO")
 
         
